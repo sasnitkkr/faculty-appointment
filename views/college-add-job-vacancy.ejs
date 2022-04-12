@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Job Vacancy</title>
+  </head>
+  <body>
+    <!-- designation: { type: String, default: "" },
+  minimumQualification: { type: String, default: "" },
+  jobDescription: { type: String, default: "" },
+  professorUnder: { type: String, default: "" } -->
+    <form action="/add-job-vacancy/" method="post">
+      <label for="designation">Designation</label><br />
+      <input type="text" id="designation" name="designation" /><br />
+
+      <label for="minimumQualification">Minimum Qualification</label><br />
+      <input
+        type="text"
+        id="minimumQualification"
+        name="minimumQualification"
+      /><br />
+
+      <label for="jobDescription">Job Description</label><br />
+      <input type="text" id="jobDescription" name="jobDescription" /><br />
+
+      <label for="professorUnder">Professor Under</label><br />
+      <input type="url" id="professorUnder" name="professorUnder" /><br />
+
+      <button type="submit">Add</button>
+    </form>
+  </body>
+</html>

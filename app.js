@@ -20,20 +20,25 @@ const College = mongoose.model("College", collegeSchema);
 app.get("/", (req, res) => {
   res.render("home");
 });
-app.get("/signin", (req, res) => {
+app.get("/signin/", (req, res) => {
   res.render("signin");
 });
-app.get("/signup", (req, res) => {
+app.get("/signup/", (req, res) => {
   res.render("signup");
 });
+
+// College
 app.get("/college/:collegeId/", (req, res) => {
-  const profileURL = "/college/" + req.params.collegeId + "/profile";
+  const profileURL = "/college/" + req.params.collegeId + "/profile/";
+  const addJobVacancyURL =
+    "/college/" + req.params.collegeId + "/add-job-vacancy/";
   res.render("college", {
     collegeId: req.params.collegeId,
     profileURL: profileURL,
+    addJobVacancyURL: addJobVacancyURL,
   });
 });
-app.get("/college/:collegeId/profile", (req, res) => {
+app.get("/college/:collegeId/profile/", (req, res) => {
   College.findById({ _id: req.params.collegeId }, (err, college) => {
     if (err) {
       return console.log(err);
@@ -48,6 +53,9 @@ app.get("/college/:collegeId/profile", (req, res) => {
       });
     }
   });
+});
+app.get("/college/:collegeId/add-job-vacancy/", (req, res) => {
+  res.render("college-add-job-vacancy");
 });
 
 app.post("/signin", (req, res) => {
@@ -82,6 +90,10 @@ app.post("/signup", (req, res) => {
     college.save();
     res.redirect("/signin");
   }
+});
+// College
+app.post("/add-job-vacancy/", (req, res) => {
+  
 });
 
 app.listen(3000, () => {
