@@ -7,11 +7,7 @@
     <title>Add Job Vacancy</title>
   </head>
   <body>
-    <!-- designation: { type: String, default: "" },
-  minimumQualification: { type: String, default: "" },
-  jobDescription: { type: String, default: "" },
-  professorUnder: { type: String, default: "" } -->
-    <form action="/add-job-vacancy/" method="post">
+    <form action=<%=addJobVacancyURL%> method="post">
       <label for="designation">Designation</label><br />
       <input type="text" id="designation" name="designation" /><br />
 

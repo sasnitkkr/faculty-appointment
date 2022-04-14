@@ -9,7 +9,6 @@ const collegeSchema = new mongoose.Schema({
   pinCode: { type: String, default: "" },
   type: { type: String, default: "" },
   website: { type: String, default: "" },
-  jobVacancy: [{ type: ObjectId, ref: "Job" }],
 });
 
 const jobSchema = new mongoose.Schema({
@@ -17,21 +16,31 @@ const jobSchema = new mongoose.Schema({
   minimumQualification: { type: String, default: "" },
   jobDescription: { type: String, default: "" },
   professorUnder: { type: String, default: "" },
-  applicantions: [
-    {
-      status: { type: Boolean, default: false },
-      appliedBy: { type: ObjectId, ref: "Professor" },
-    }
-  ],
+  postedBy: { type: ObjectId, ref: "College" },
 });
 
-const professorSchema = new mongoose.Schema({
+const facultySchema = new mongoose.Schema({
   email: { type: String, required: true },
   password: { type: String, required: true },
   name: { type: String, default: "" },
-  applications: [{ type: ObjectId, ref: "Job" }],
+  about: { type: String, default: "" },
+});
+
+const applicationSchema = new mongoose.Schema({
+  status: { type: Boolean, default: false },
+  appliedBy: {
+    type: ObjectId,
+    ref: "Faculty",
+  },
+  appliedFor: {
+    type: ObjectId,
+    ref: "Job",
+  },
 });
 
 module.exports = {
   collegeSchema: collegeSchema,
+  facultySchema: facultySchema,
+  jobSchema: jobSchema,
+  applicationSchema: applicationSchema,
 };

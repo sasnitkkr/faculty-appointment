@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Job Vacancies</title>
+  </head>
+  <body>
+    <h1>
+      It'll Include All jobs posted by this user and the applicants details
+    </h1>
+    <% jobs.forEach((job)=>{%>
+    <div>
+      <div>Designation: <%=job.designation%></div>
+      <div>Minimum Qualification: <%=job.minimumQualification%></div>
+      <div>Job Description: <%=job.jobDescription%></div>
+      <div>
+        Professor Under: <a href="<%=job.professorUnder%>">Click Here</a>
+      </div>
+    </div>
+    <%})%>
+  </body>
+</html>
