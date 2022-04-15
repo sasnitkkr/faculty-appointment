@@ -71,21 +71,23 @@ app.get("/college/:collegeId/add-job-vacancy/", (req, res) => {
   res.render("college-add-job-vacancy", { addJobVacancyURL: addJobVacancyURL });
 });
 app.get("/college/:collegeId/your-job-vacancies/", (req, res) => {
-  const jobs = [
-    {
-      designation: "Assistant Professor",
-      minimumQualification: "M.Tech",
-      jobDescription: "Required an Assistant Professor",
-      professorUnder: "http://www.nitkkr.ac.in/comp_faculty_details.php?idd=52",
-    },
-    {
-      designation: "Assistant Professor",
-      minimumQualification: "M.Tech",
-      jobDescription: "Required an Assistant Professor",
-      professorUnder: "http://www.nitkkr.ac.in/comp_faculty_details.php?idd=52",
-    },
-  ];
-  res.render("college-your-job-vacancies", { jobs: jobs });
+  const jobs = [];
+  Job.find({ postedBy: req.params.collegeId }, (err, foundJobs) => {
+    if (err) {
+      return console.log(err);
+    } else {
+      foundJobs.forEach((job) => {
+        const obj = {
+          designation: job.designation,
+          minimumQualification: job.minimumQualification,
+          jobDescription: job.jobDescription,
+          professorUnder: job.professorUnder,
+        };
+        jobs.push(obj);
+      });
+      res.render("college-your-job-vacancies", { jobs: jobs });
+    }
+  });
 });
 // Faculty
 app.get("/faculty/:facultyId/", (req, res) => {
