@@ -71,11 +71,11 @@ app.get("/college/:collegeId/add-job-vacancy/", (req, res) => {
   res.render("college-add-job-vacancy", { addJobVacancyURL: addJobVacancyURL });
 });
 app.get("/college/:collegeId/your-job-vacancies/", (req, res) => {
-  const jobs = [];
   Job.find({ postedBy: req.params.collegeId }, (err, foundJobs) => {
     if (err) {
       return console.log(err);
     } else {
+      const jobs = [];
       foundJobs.forEach((job) => {
         const obj = {
           designation: job.designation,
@@ -94,7 +94,7 @@ app.get("/faculty/:facultyId/", (req, res) => {
   const profileURL = "/faculty/" + req.params.facultyId + "/profile/";
   const yourApplicationsURL =
     "/faculty/" + req.params.facultyId + "/your-applications/";
-  const vacanciesURL = "/job-vacancies/";
+  const vacanciesURL = "/faculty/:facultyId/job-vacancies/";
   res.render("faculty", {
     facultyId: req.params.facultyId,
     profileURL: profileURL,
@@ -103,13 +103,50 @@ app.get("/faculty/:facultyId/", (req, res) => {
   });
 });
 app.get("/faculty/:facultyId/profile/", (req, res) => {
-  res.render("faculty-profile");
+  Faculty.findById({ _id: req.params.facultyId }, (err, foundUser) => {
+    if (err) {
+      return console.log(err);
+    } else {
+      res.render("faculty-profile", {
+        name: foundUser.name,
+        about: foundUser.about,
+      });
+    }
+  });
 });
 app.get("/faculty/:facultyId/your-applications/", (req, res) => {
   res.render("faculty-your-applications");
 });
-app.get("/job-vacancies/", (req, res) => {
-  res.render("job-vacancies");
+app.get("/faculty/:facultyId/job-vacancies/", (req, res) => {
+  Job.find({}, (err, foundJobs) => {
+    if (err) {
+      return console.log(err);
+    } else {
+      console.log("entered else inside f/fid/vac");
+      console.log(foundJobs);
+      const vacancies = [];
+      foundJobs.forEach((job) => {
+        console.log(job);
+        College.findById(job.postedBy).then((college) => {
+          console.log(college);
+          const collegeName = college.name;
+          const collegeWebsite = college.website;
+          const vacancy = {
+            designation: job.designation,
+            minimumQualification: job.minimumQualification,
+            jobDescription: job.jobDescription,
+            professorUnder: job.professorUnder,
+            collegeName: collegeName,
+            collegeWebsite: collegeWebsite,
+          }; 
+          console.log(vacancy);
+          vacancies.push(vacancy);
+          console.log(vacancies);
+        });
+      });
+      res.render("job-vacancies", { vacancies: vacancies });
+    }
+  });
 });
 
 app.post("/signin", (req, res) => {
@@ -150,19 +187,43 @@ app.post("/signin", (req, res) => {
   }
 });
 app.post("/signup", (req, res) => {
-  // SignIn for a New User
+  // SignUp for a New User
   console.log(req.body.email, req.body.password, req.body.userType);
   if (req.body.userType === "college") {
-    const college = new College({
-      email: req.body.email,
-      password: req.body.password,
+    College.findOne({ email: req.body.email }, (err, foundUser) => {
+      if (err) {
+        return console.log(err);
+      } else if (!foundUser) {
+        //user not found
+        const college = new College({
+          email: req.body.email,
+          password: req.body.password,
+        });
+        college.save();
+        res.redirect("/signin");
+      } else {
+        console.log("College Already Exist");
+        res.redirect("/signin");
+      }
     });
-    college.save();
-    res.redirect("/signin");
   } else if (req.body.userType === "faculty") {
-    const faculty = new Faculty({});
-    faculty.save();
-    res.redirect("signin");
+    Faculty.findOne({ email: req.body.email }, (err, foundUser) => {
+      if (err) {
+        return console.log(err);
+      } else if (!foundUser) {
+        //user not found
+        const faculty = new Faculty({
+          email: req.body.email,
+          password: req.body.password,
+        });
+        faculty.save();
+        res.redirect("/signin");
+      } else {
+        console.log("Faculty Already Exist");
+        console.log(foundUser);
+        res.redirect("/signin");
+      }
+    });
   }
 });
 // College

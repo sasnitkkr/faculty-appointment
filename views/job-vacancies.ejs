@@ -7,6 +7,24 @@
     <title>Job Vacancies</title>
   </head>
   <body>
-    <h1>Contains All Job Vacancies</h1>
+    <h1>Job Vacancies</h1>
+    <ul>
+      <% vacancies.forEach((vacancy)=>{%>
+      <li>
+        <div>Designation: <%=vacancy.designation%></div>
+        <div>Minimum Qualification: <%=vacancy.minimumQualification%></div>
+        <div>Job Description: <%=vacancy.jobDescription%></div>
+        <div>
+          Professor Under:
+          <a href="<%=vacancy.professorUnder%>" target="_blank">Click Here</a>
+        </div>
+        <div>College Name: <%=collegeName%></div>
+        <div>
+          College Website
+          <a href="<%=collegeWebsite %>" target="_blank">Click Here</a>
+        </div>
+      </li>
+      <%})%>
+    </ul>
   </body>
 </html>
