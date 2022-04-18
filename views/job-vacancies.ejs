@@ -8,6 +8,7 @@
   </head>
   <body>
     <h1>Job Vacancies</h1>
+    <%= vacancies.length %>
     <ul>
       <% vacancies.forEach((vacancy)=>{%>
       <li>
@@ -18,10 +19,10 @@
           Professor Under:
           <a href="<%=vacancy.professorUnder%>" target="_blank">Click Here</a>
         </div>
-        <div>College Name: <%=collegeName%></div>
+        <div>College Name: <%=vacancy.collegeName%></div>
         <div>
           College Website
-          <a href="<%=collegeWebsite %>" target="_blank">Click Here</a>
+          <a href="<%=vacancy.collegeWebsite%>" target="_blank">Click Here</a>
         </div>
       </li>
       <%})%>

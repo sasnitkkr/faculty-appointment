@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SignUp | College</title>
+  </head>
+  <body>
+    <form action="/signup/college/" method="post">
+      <label for="email">Email</label><br />
+      <input
+        type="email"
+        id="email"
+        name="email"
+        placeholder="Email address"
+      /><br />
+      <label for="password">Password</label><br />
+      <input
+        type="password"
+        id="password"
+        name="password"
+        placeholder="Password"
+      />
+      <br />
+      <label for="name">Name</label><br />
+      <input
+        type="text"
+        id="name"
+        name="name"
+        placeholder="College Name"
+      /><br />
+      <label for="city">City</label><br />
+      <input type="text" id="city" name="city" placeholder="City" /><br />
+      <label for="state">State</label><br />
+      <input type="text" id="state" name="state" placeholder="State" /><br />
+      <label for="pin">Pin Code</label><br />
+      <input type="number" id="pin" name="pin" placeholder="Pin Code" /><br />
+      <label for="cars">College Type</label>
+      <select name="type" id="type">
+        <option value="Autonomous">Autonomous</option>
+        <option value="Non-Autonomous">Non-Autonomous</option>
+      </select>
+      <br />
+      <label for="website">Website</label><br />
+      <input
+        type="url"
+        id="website"
+        name="website"
+        placeholder="Website"
+      /><br />
+      <button type="submit">SignUp</button>
+    </form>
+  </body>
+</html>

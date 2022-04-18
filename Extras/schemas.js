@@ -6,7 +6,7 @@ const collegeSchema = new mongoose.Schema({
   name: { type: String, default: "" },
   city: { type: String, default: "" },
   state: { type: String, default: "" },
-  pinCode: { type: String, default: "" },
+  pinCode: { type: Number, default: "" },
   type: { type: String, default: "" },
   website: { type: String, default: "" },
 });
@@ -16,7 +16,8 @@ const jobSchema = new mongoose.Schema({
   minimumQualification: { type: String, default: "" },
   jobDescription: { type: String, default: "" },
   professorUnder: { type: String, default: "" },
-  postedBy: { type: ObjectId, ref: "College" },
+  postedBy: { type: ObjectId, default: "" },
+  college: { type: collegeSchema },
 });
 
 const facultySchema = new mongoose.Schema({
