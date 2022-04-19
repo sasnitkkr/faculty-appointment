@@ -101,7 +101,7 @@ app.get("/faculty/:facultyId/", (req, res) => {
   const profileURL = "/faculty/" + req.params.facultyId + "/profile/";
   const yourApplicationsURL =
     "/faculty/" + req.params.facultyId + "/your-applications/";
-  const vacanciesURL = "/faculty/:facultyId/job-vacancies/";
+  const vacanciesURL = "/faculty/" + req.params.facultyId + "/job-vacancies/";
   res.render("faculty", {
     facultyId: req.params.facultyId,
     profileURL: profileURL,
@@ -124,102 +124,27 @@ app.get("/faculty/:facultyId/profile/", (req, res) => {
 app.get("/faculty/:facultyId/your-applications/", (req, res) => {
   res.render("faculty-your-applications");
 });
-// app.get("/faculty/:facultyId/job-vacancies/", (req, res) => {
-//   Job.find({}, (err, foundJobs) => {
-//     if (err) {
-//       return console.log(err);
-//     }
-//     res.render("job-vacancies", { vacancies: foundJobs });
-//   });
-// });
 
-// app.get("/faculty/:facultyId/job-vacancies/", (req, res) => {
-//   console.log("1");
-//   Job.find({}, (err, foundJobs) => {
-//     console.log("2");
-//     if (err) {
-//       return console.log(err);
-//     }
-//     const vacancies = [];
-//     foundJobs.forEach(async (job) => {
-//       console.log("for");
-//       const college = await College.findById(job.postedBy).exec();
-//       console.log(college);
-//       const collegeName = college.name;
-//       const collegeWebsite = college.website;
-//       const vacancy = {
-//         designation: job.designation,
-//         minimumQualification: job.minimumQualification,
-//         jobDescription: job.jobDescription,
-//         professorUnder: job.professorUnder,
-//         collegeName: collegeName,
-//         collegeWebsite: collegeWebsite,
-//       };
-//       console.log("push");
-//       vacancies.push(vacancy);
-//     });
-//     console.log("render");
-//     res.render("job-vacancies", { vacancies: vacancies });
-//   });
-// });
-
-const convertToVacancy = (college, job) => {
+const convertToVacancy = (job) => {
   const vacancy = {
     designation: job.designation,
     minimumQualification: job.minimumQualification,
     jobDescription: job.jobDescription,
     professorUnder: job.professorUnder,
-    collegeName: college.name,
-    collegeWebsite: college.website,
+    collegeName: job.college.name,
+    collegeWebsite: job.college.website,
   };
   return vacancy;
 };
 
 app.get("/faculty/:facultyId/job-vacancies/", (req, res) => {
-  const vacancies = [];
-  Job.find({})
-    .exec()
-    .then((foundJobs) => {
-      foundJobs.forEach((job) => {
-        College.findById(job.postedBy)
-          .exec()
-          .then((foundCollege) => {
-            console.log;
-            vacancies.push(convertToVacancy(foundCollege, job));
-            console.log(vacancies);
-          });
-      });
-    })
-    .catch((err) => console.log(err))
-    .finally(() => {
-      res.render("job-vacancies", { vacancies: vacancies });
+  Job.find({}, (err, jobs) => {
+    const vacancies = [];
+    jobs.forEach((job) => {
+      vacancies.push(convertToVacancy(job));
     });
-  // Job.find({}, (err, foundJobs) => {
-  //   console.log("2");
-  //   if (err) {
-  //     return console.log(err);
-  //   }
-  //   const vacancies = [];
-  //   foundJobs.forEach(async (job) => {
-  //     console.log("for");
-  //     const college = await College.findById(job.postedBy).exec();
-  //     console.log(college);
-  //     const collegeName = college.name;
-  //     const collegeWebsite = college.website;
-  //     const vacancy = {
-  //       designation: job.designation,
-  //       minimumQualification: job.minimumQualification,
-  //       jobDescription: job.jobDescription,
-  //       professorUnder: job.professorUnder,
-  //       collegeName: collegeName,
-  //       collegeWebsite: collegeWebsite,
-  //     };
-  //     console.log("push");
-  //     vacancies.push(vacancy);
-  //   });
-  //   console.log("render");
-  //   res.render("job-vacancies", { vacancies: vacancies });
-  // });
+    res.render("job-vacancies", { vacancies: vacancies });  
+  });
 });
 
 app.post("/signin/", (req, res) => {
@@ -296,44 +221,25 @@ app.post("/signup/college/", (req, res) => {
   });
 });
 app.post("/signup/faculty", (req, res) => {
-  // SignUp for a New User
-  console.log(req.body.email, req.body.password, req.body.userType);
-  if (req.body.userType === "college") {
-    College.findOne({ email: req.body.email }, (err, foundUser) => {
-      if (err) {
-        return console.log(err);
-      } else if (!foundUser) {
-        //user not found
-        const college = new College({
-          email: req.body.email,
-          password: req.body.password,
-        });
-        college.save();
-        res.redirect("/signin");
-      } else {
-        console.log("College Already Exist");
-        res.redirect("/signin");
-      }
-    });
-  } else if (req.body.userType === "faculty") {
-    Faculty.findOne({ email: req.body.email }, (err, foundUser) => {
-      if (err) {
-        return console.log(err);
-      } else if (!foundUser) {
-        //user not found
-        const faculty = new Faculty({
-          email: req.body.email,
-          password: req.body.password,
-        });
-        faculty.save();
-        res.redirect("/signin");
-      } else {
-        console.log("Faculty Already Exist");
-        console.log(foundUser);
-        res.redirect("/signin");
-      }
-    });
-  }
+  Faculty.findOne({ email: req.body.email }, (err, foundUser) => {
+    if (err) {
+      return console.log(err);
+    } else if (!foundUser) {
+      //user not found
+      const faculty = new Faculty({
+        email: req.body.email,
+        password: req.body.password,
+        name: req.body.name,
+        about: req.body.about,
+      });
+      faculty.save();
+      res.redirect("/signin");
+    } else {
+      console.log("Faculty Already Exist");
+      console.log(foundUser);
+      res.redirect("/signin");
+    }
+  });
 });
 // College
 app.post("/college/:collegeId/add-job-vacancy/", (req, res) => {

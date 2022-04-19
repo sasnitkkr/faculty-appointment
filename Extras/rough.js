@@ -176,3 +176,69 @@ app.get("/faculty/:facultyId/job-vacancies/", (req, res) => {
     res.render("job-vacancies", { vacancies: vacancies });
   });
 });
+
+// app.get("/faculty/:facultyId/job-vacancies/", (req, res) => {
+//   Job.find({}, (err, foundJobs) => {
+//     if (err) {
+//       return console.log(err);
+//     }
+//     res.render("job-vacancies", { vacancies: foundJobs });
+//   });
+// });
+
+// app.get("/faculty/:facultyId/job-vacancies/", (req, res) => {
+//   console.log("1");
+//   Job.find({}, (err, foundJobs) => {
+//     console.log("2");
+//     if (err) {
+//       return console.log(err);
+//     }
+//     const vacancies = [];
+//     foundJobs.forEach(async (job) => {
+//       console.log("for");
+//       const college = await College.findById(job.postedBy).exec();
+//       console.log(college);
+//       const collegeName = college.name;
+//       const collegeWebsite = college.website;
+//       const vacancy = {
+//         designation: job.designation,
+//         minimumQualification: job.minimumQualification,
+//         jobDescription: job.jobDescription,
+//         professorUnder: job.professorUnder,
+//         collegeName: collegeName,
+//         collegeWebsite: collegeWebsite,
+//       };
+//       console.log("push");
+//       vacancies.push(vacancy);
+//     });
+//     console.log("render");
+//     res.render("job-vacancies", { vacancies: vacancies });
+//   });
+// });
+
+// Job.find({}, (err, foundJobs) => {
+  //   console.log("2");
+  //   if (err) {
+  //     return console.log(err);
+  //   }
+  //   const vacancies = [];
+  //   foundJobs.forEach(async (job) => {
+  //     console.log("for");
+  //     const college = await College.findById(job.postedBy).exec();
+  //     console.log(college);
+  //     const collegeName = college.name;
+  //     const collegeWebsite = college.website;
+  //     const vacancy = {
+  //       designation: job.designation,
+  //       minimumQualification: job.minimumQualification,
+  //       jobDescription: job.jobDescription,
+  //       professorUnder: job.professorUnder,
+  //       collegeName: collegeName,
+  //       collegeWebsite: collegeWebsite,
+  //     };
+  //     console.log("push");
+  //     vacancies.push(vacancy);
+  //   });
+  //   console.log("render");
+  //   res.render("job-vacancies", { vacancies: vacancies });
+  // });
