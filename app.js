@@ -10,6 +10,7 @@ const {
   applicationSchema,
 } = require("./Extras/schemas");
 const { response } = require("express");
+const read = require("body-parser/lib/read");
 
 const app = express();
 app.set("view engine", "ejs");
@@ -84,16 +85,33 @@ app.get("/college/:collegeId/your-job-vacancies/", (req, res) => {
     } else {
       const jobs = [];
       foundJobs.forEach((job) => {
+        const applicantsLink = "/college/job/" + job._id + "/applicants/";
         const obj = {
           designation: job.designation,
           minimumQualification: job.minimumQualification,
           jobDescription: job.jobDescription,
           professorUnder: job.professorUnder,
+          applicantsLink: applicantsLink,
         };
         jobs.push(obj);
       });
       res.render("college-your-job-vacancies", { jobs: jobs });
     }
+  });
+});
+app.get("/college/job/:jobId/applicants/", (req, res) => {
+  Application.find({ jobId: req.params.jobId }, (err, applications) => {
+    const applicants = [];
+    applications.forEach((application) => {
+      const applicant = {
+        name: application.faculty.name,
+        about: application.faculty.about,
+        email: application.faculty.email,
+        emailLink: `mailto: ${application.faculty.email}`,
+      };
+      applicants.push(applicant);
+    });
+    res.render("college-view-applicants", { applicants: applicants });
   });
 });
 // Faculty
