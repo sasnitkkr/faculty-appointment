@@ -29,14 +29,10 @@ const facultySchema = new mongoose.Schema({
 
 const applicationSchema = new mongoose.Schema({
   status: { type: Boolean, default: false },
-  appliedBy: {
-    type: ObjectId,
-    ref: "Faculty",
-  },
-  appliedFor: {
-    type: ObjectId,
-    ref: "Job",
-  },
+  faculty: { type: facultySchema },
+  job: { type: jobSchema },
+  facultyId: { type: ObjectId, ref: "Faculty" },
+  jobId: { type: ObjectId, ref: "Job" },
 });
 
 module.exports = {
