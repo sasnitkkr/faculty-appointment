@@ -121,8 +121,29 @@ app.get("/faculty/:facultyId/profile/", (req, res) => {
     }
   });
 });
+const convertToApplication = (application) => {
+  const jobLink = "/job/" + application.job._id + "/";
+  const res = {
+    designation: application.job.designation,
+    college: application.job.college.name,
+    jobLink: jobLink,
+  };
+  return res;
+};
 app.get("/faculty/:facultyId/your-applications/", (req, res) => {
-  res.render("faculty-your-applications");
+  Application.find(
+    { facultyId: req.params.facultyId },
+    (err, foundApplications) => {
+      if (err) {
+        return console.log(err);
+      }
+      const applications = [];
+      foundApplications.forEach((application) => {
+        applications.push(convertToApplication(application));
+      });
+      res.render("faculty-your-applications", { applications: applications });
+    }
+  );
 });
 
 const convertToVacancy = (job, facultyId) => {
@@ -178,6 +199,23 @@ app.get("/faculty/:facultyId/apply/:jobId/", (req, res) => {
         }
       );
     });
+  });
+});
+
+app.get("/job/:jobId/", (req, res) => {
+  Job.findById({ _id: req.params.jobId }, (err, job) => {
+    if (err) {
+      return console.log(err);
+    }
+    const vacancy = {
+      designation: job.designation,
+      minimumQualification: job.minimumQualification,
+      jobDescription: job.jobDescription,
+      professorUnder: job.professorUnder,
+      collegeName: job.college.name,
+      collegeWebsite: job.college.website,
+    };
+    res.render("view-one-job", { vacancy: vacancy });
   });
 });
 

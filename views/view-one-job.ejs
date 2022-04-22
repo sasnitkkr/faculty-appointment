@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Job Details</title>
+  </head>
+  <body>
+    <ul>
+      <li>
+        <div>Designation: <%=vacancy.designation%></div>
+        <div>Minimum Qualification: <%=vacancy.minimumQualification%></div>
+        <div>Job Description: <%=vacancy.jobDescription%></div>
+        <div>
+          Professor Under:
+          <a href="<%=vacancy.professorUnder%>" target="_blank">Click Here</a>
+        </div>
+        <div>College Name: <%=vacancy.collegeName%></div>
+        <div>
+          College Website
+          <a href="<%=vacancy.collegeWebsite%>" target="_blank">Click Here</a>
+        </div>
+      </li>
+    </ul>
+  </body>
+</html>
