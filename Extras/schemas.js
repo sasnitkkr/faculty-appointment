@@ -33,7 +33,7 @@ const applicationSchema = new mongoose.Schema({
   job: { type: jobSchema },
   facultyId: { type: ObjectId, ref: "Faculty" },
   jobId: { type: ObjectId, ref: "Job" },
-});
+}); 
 
 module.exports = {
   collegeSchema: collegeSchema,

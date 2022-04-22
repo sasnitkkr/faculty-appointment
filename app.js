@@ -125,7 +125,8 @@ app.get("/faculty/:facultyId/your-applications/", (req, res) => {
   res.render("faculty-your-applications");
 });
 
-const convertToVacancy = (job) => {
+const convertToVacancy = (job, facultyId) => {
+  const applyLink = "/faculty/" + facultyId + "/apply/" + job._id + "/";
   const vacancy = {
     designation: job.designation,
     minimumQualification: job.minimumQualification,
@@ -133,6 +134,7 @@ const convertToVacancy = (job) => {
     professorUnder: job.professorUnder,
     collegeName: job.college.name,
     collegeWebsite: job.college.website,
+    applyLink: applyLink,
   };
   return vacancy;
 };
@@ -141,9 +143,41 @@ app.get("/faculty/:facultyId/job-vacancies/", (req, res) => {
   Job.find({}, (err, jobs) => {
     const vacancies = [];
     jobs.forEach((job) => {
-      vacancies.push(convertToVacancy(job));
+      vacancies.push(convertToVacancy(job, req.params.facultyId));
     });
-    res.render("job-vacancies", { vacancies: vacancies });  
+    res.render("job-vacancies", { vacancies: vacancies });
+  });
+});
+
+app.get("/faculty/:facultyId/apply/:jobId/", (req, res) => {
+  Faculty.findById({ _id: req.params.facultyId }, (err, faculty) => {
+    if (err) {
+      return console.log(err);
+    }
+    Job.findById({ _id: req.params.jobId }, (err, job) => {
+      if (err) {
+        return console.log(err);
+      }
+      Application.findOne(
+        { facultyId: req.params.facultyId, jobId: req.params.jobId },
+        (err, application) => {
+          if (err) {
+            return console.log(err);
+          }
+          if (!application) {
+            const application = new Application({
+              status: false,
+              faculty: faculty,
+              facultyId: faculty._id,
+              job: job,
+              jobId: job._id,
+            });
+            application.save();
+          }
+          res.redirect("/faculty/" + req.params.facultyId + "/job-vacancies/");
+        }
+      );
+    });
   });
 });
 
