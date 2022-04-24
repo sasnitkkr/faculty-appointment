@@ -4,52 +4,99 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <style>
+      .form-body {
+        width: 300px;
+        margin: auto;
+        padding: 1rem;
+      }
+    </style>
     <title>SignUp | College</title>
   </head>
   <body>
+    <%- include("partials/home-header.ejs"); %>
     <form action="/signup/college/" method="post">
-      <label for="email">Email</label><br />
-      <input
-        type="email"
-        id="email"
-        name="email"
-        placeholder="Email address"
-      /><br />
-      <label for="password">Password</label><br />
-      <input
-        type="password"
-        id="password"
-        name="password"
-        placeholder="Password"
-      />
-      <br />
-      <label for="name">Name</label><br />
-      <input
-        type="text"
-        id="name"
-        name="name"
-        placeholder="College Name"
-      /><br />
-      <label for="city">City</label><br />
-      <input type="text" id="city" name="city" placeholder="City" /><br />
-      <label for="state">State</label><br />
-      <input type="text" id="state" name="state" placeholder="State" /><br />
-      <label for="pin">Pin Code</label><br />
-      <input type="number" id="pin" name="pin" placeholder="Pin Code" /><br />
-      <label for="cars">College Type</label>
-      <select name="type" id="type">
-        <option value="Autonomous">Autonomous</option>
-        <option value="Non-Autonomous">Non-Autonomous</option>
-      </select>
-      <br />
-      <label for="website">Website</label><br />
-      <input
-        type="url"
-        id="website"
-        name="website"
-        placeholder="Website"
-      /><br />
-      <button type="submit">SignUp</button>
+      <div class="form-body">
+        <label class="form-label" for="email">Email</label><br />
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="Email address"
+          class="form-control"
+        /><br />
+        <label class="form-label" for="password">Password</label><br />
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Password"
+          class="form-control"
+        />
+        <br />
+        <label class="form-label" for="name">Name</label><br />
+        <input
+          type="text"
+          id="name"
+          name="name"
+          placeholder="College Name"
+          class="form-control"
+        /><br />
+        <label class="form-label" for="city">City</label><br />
+        <input
+          class="form-control"
+          type="text"
+          id="city"
+          name="city"
+          placeholder="City"
+        /><br />
+        <label class="form-label" for="state">State</label><br />
+        <input
+          class="form-control"
+          type="text"
+          id="state"
+          name="state"
+          placeholder="State"
+        /><br />
+        <label class="form-label" for="pin">Pin Code</label><br />
+        <input
+          class="form-control"
+          type="number"
+          id="pin"
+          name="pin"
+          placeholder="Pin Code"
+        /><br />
+        <label class="form-label" for="cars">College Type</label>
+        <select class="form-select" name="type" id="type">
+          <option value="Autonomous">Autonomous</option>
+          <option value="Non-Autonomous">Non-Autonomous</option>
+        </select>
+        <br />
+        <label class="form-label" for="website">Website</label><br />
+        <input
+          type="url"
+          id="website"
+          name="website"
+          placeholder="Website"
+          class="form-control"
+        /><br />
+        <button class="w-100 btn btn-lg btn-primary" type="submit">
+          SignUp
+        </button>
+      </div>
     </form>
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
