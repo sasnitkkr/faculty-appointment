@@ -58,6 +58,11 @@ app.get("/college/:collegeId/", (req, res) => {
   });
 });
 app.get("/college/:collegeId/profile/", (req, res) => {
+  const profileURL = "/college/" + req.params.collegeId + "/profile/";
+  const addJobVacancyURL =
+    "/college/" + req.params.collegeId + "/add-job-vacancy/";
+  const yourJobVacanciesURL =
+    "/college/" + req.params.collegeId + "/your-job-vacancies/";
   College.findById({ _id: req.params.collegeId }, (err, college) => {
     if (err) {
       return console.log(err);
@@ -69,16 +74,32 @@ app.get("/college/:collegeId/profile/", (req, res) => {
         pin: college.pinCode,
         type: college.type,
         website: college.website,
+        profileURL: profileURL,
+        addJobVacancyURL: addJobVacancyURL,
+        yourJobVacanciesURL: yourJobVacanciesURL,
       });
     }
   });
 });
 app.get("/college/:collegeId/add-job-vacancy/", (req, res) => {
+  const profileURL = "/college/" + req.params.collegeId + "/profile/";
   const addJobVacancyURL =
     "/college/" + req.params.collegeId + "/add-job-vacancy/";
-  res.render("college-add-job-vacancy", { addJobVacancyURL: addJobVacancyURL });
+  const yourJobVacanciesURL =
+    "/college/" + req.params.collegeId + "/your-job-vacancies/";
+
+  res.render("college-add-job-vacancy", {
+    addJobVacancyURL: addJobVacancyURL,
+    profileURL: profileURL,
+    yourJobVacanciesURL: yourJobVacanciesURL,
+  });
 });
 app.get("/college/:collegeId/your-job-vacancies/", (req, res) => {
+  const profileURL = "/college/" + req.params.collegeId + "/profile/";
+  const addJobVacancyURL =
+    "/college/" + req.params.collegeId + "/add-job-vacancy/";
+  const yourJobVacanciesURL =
+    "/college/" + req.params.collegeId + "/your-job-vacancies/";
   Job.find({ postedBy: req.params.collegeId }, (err, foundJobs) => {
     if (err) {
       return console.log(err);
@@ -95,7 +116,12 @@ app.get("/college/:collegeId/your-job-vacancies/", (req, res) => {
         };
         jobs.push(obj);
       });
-      res.render("college-your-job-vacancies", { jobs: jobs });
+      res.render("college-your-job-vacancies", {
+        jobs: jobs,
+        profileURL: profileURL,
+        addJobVacancyURL: addJobVacancyURL,
+        yourJobVacanciesURL: yourJobVacanciesURL,
+      });
     }
   });
 });
