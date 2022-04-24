@@ -19,16 +19,19 @@
     <ul>
       <% jobs.forEach((job)=>{%>
       <li>
-        <div>
-          <div>Designation: <%=job.designation%></div>
-          <div>Minimum Qualification: <%=job.minimumQualification%></div>
-          <div>Job Description: <%=job.jobDescription%></div>
+        <div
+          class="container-sm"
+          style="background-color: #f8f9fa; margin-top: 2rem"
+        >
+          <div><b>Designation:</b> <%=job.designation%></div>
+          <div><b>Minimum Qualification:</b> <%=job.minimumQualification%></div>
+          <div><b>Job Description: </b><%=job.jobDescription%></div>
           <div>
-            Professor Under:
+            <b>Professor Under:</b>
             <a href="<%=job.professorUnder%>" target="_blank">Click Here</a>
           </div>
           <div>
-            View Applicants
+            <b>View Applicants:</b>
             <a href="<%=job.applicantsLink%>" target="_blank">Click Here</a>
           </div>
         </div>

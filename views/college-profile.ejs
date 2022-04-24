@@ -15,32 +15,37 @@
   </head>
   <body>
     <%- include("partials/college-header.ejs") %>
-    <table>
-      <tr>
-        <td>Name :</td>
-        <td><%= name %></td>
-      </tr>
-      <tr>
-        <td>City :</td>
-        <td><%= city %></td>
-      </tr>
-      <tr>
-        <td>State :</td>
-        <td><%= state %></td>
-      </tr>
-      <tr>
-        <td>Pin Code :</td>
-        <td><%= pin %></td>
-      </tr>
-      <tr>
-        <td>Type :</td>
-        <td><%= type %></td>
-      </tr>
-      <tr>
-        <td>Website :</td>
-        <td><a href="<%= website %>" target="_blank">Click Here</a></td>
-      </tr>
-    </table>
+    <div
+      class="container-sm"
+      style="background-color: #f8f9fa; margin-top: 2rem"
+    >
+      <table>
+        <tr>
+          <th>Name :</th>
+          <td><%= name %></td>
+        </tr>
+        <tr>
+          <th>City :</th>
+          <td><%= city %></td>
+        </tr>
+        <tr>
+          <th>State :</th>
+          <td><%= state %></td>
+        </tr>
+        <tr>
+          <th>Pin Code :</th>
+          <td><%= pin %></td>
+        </tr>
+        <tr>
+          <th>Type :</th>
+          <td><%= type %></td>
+        </tr>
+        <tr>
+          <th>Website :</th>
+          <td><a href="<%= website %>" target="_blank">Click Here</a></td>
+        </tr>
+      </table>
+    </div>
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
