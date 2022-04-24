@@ -14,34 +14,24 @@
     <title>Home | Professor Appointment Online</title>
   </head>
   <body>
-    <nav class="navbar navbar-expand-sm navbar-light bg-light">
-      <div class="container-fluid">
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" href="/">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/signin">SignIn</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/signup">SignUp</a>
-            </li>
-          </ul>
+    <%- include("partials/home-header.ejs"); %>
+    <main>
+      <div
+        class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light"
+      >
+        <div class="col-md-5 p-lg-5 mx-auto my-5">
+          <h1 class="display-4 fw-normal">Faculty Appointment</h1>
+          <p class="lead fw-normal">
+            Post Job Vacancy, Apply for Job Openings in Just few clicks.
+          </p>
+          <a class="btn btn-outline-secondary" href="/signup">Get Started</a>
         </div>
+        <div class="product-device shadow-sm d-none d-md-block"></div>
+        <div
+          class="product-device product-device-2 shadow-sm d-none d-md-block"
+        ></div>
       </div>
-    </nav>
+    </main>
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
