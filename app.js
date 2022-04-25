@@ -154,6 +154,10 @@ app.get("/faculty/:facultyId/", (req, res) => {
   });
 });
 app.get("/faculty/:facultyId/profile/", (req, res) => {
+  const profileURL = "/faculty/" + req.params.facultyId + "/profile/";
+  const yourApplicationsURL =
+    "/faculty/" + req.params.facultyId + "/your-applications/";
+  const vacanciesURL = "/faculty/" + req.params.facultyId + "/job-vacancies/";
   Faculty.findById({ _id: req.params.facultyId }, (err, foundUser) => {
     if (err) {
       return console.log(err);
@@ -161,6 +165,9 @@ app.get("/faculty/:facultyId/profile/", (req, res) => {
       res.render("faculty-profile", {
         name: foundUser.name,
         about: foundUser.about,
+        profileURL: profileURL,
+        yourApplicationsURL: yourApplicationsURL,
+        vacanciesURL: vacanciesURL,
       });
     }
   });
@@ -175,6 +182,10 @@ const convertToApplication = (application) => {
   return res;
 };
 app.get("/faculty/:facultyId/your-applications/", (req, res) => {
+  const profileURL = "/faculty/" + req.params.facultyId + "/profile/";
+  const yourApplicationsURL =
+    "/faculty/" + req.params.facultyId + "/your-applications/";
+  const vacanciesURL = "/faculty/" + req.params.facultyId + "/job-vacancies/";
   Application.find(
     { facultyId: req.params.facultyId },
     (err, foundApplications) => {
@@ -185,7 +196,12 @@ app.get("/faculty/:facultyId/your-applications/", (req, res) => {
       foundApplications.forEach((application) => {
         applications.push(convertToApplication(application));
       });
-      res.render("faculty-your-applications", { applications: applications });
+      res.render("faculty-your-applications", {
+        applications: applications,
+        profileURL: profileURL,
+        yourApplicationsURL: yourApplicationsURL,
+        vacanciesURL: vacanciesURL,
+      });
     }
   );
 });
@@ -205,12 +221,21 @@ const convertToVacancy = (job, facultyId) => {
 };
 
 app.get("/faculty/:facultyId/job-vacancies/", (req, res) => {
+  const profileURL = "/faculty/" + req.params.facultyId + "/profile/";
+  const yourApplicationsURL =
+    "/faculty/" + req.params.facultyId + "/your-applications/";
+  const vacanciesURL = "/faculty/" + req.params.facultyId + "/job-vacancies/";
   Job.find({}, (err, jobs) => {
     const vacancies = [];
     jobs.forEach((job) => {
       vacancies.push(convertToVacancy(job, req.params.facultyId));
     });
-    res.render("job-vacancies", { vacancies: vacancies });
+    res.render("job-vacancies", {
+      vacancies: vacancies,
+      profileURL: profileURL,
+      yourApplicationsURL: yourApplicationsURL,
+      vacanciesURL: vacanciesURL,
+    });
   });
 });
 
