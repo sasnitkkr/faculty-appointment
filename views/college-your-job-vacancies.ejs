@@ -15,7 +15,9 @@
   </head>
   <body>
     <%- include("partials/college-header.ejs") %>
-    <h3>Job Vacancies posted by you along with Applicants</h3>
+    <h6 style="margin-left: 60px; margin-top: 12px">
+      Job Vacancies posted by you along with Applicants
+    </h6>
     <ul>
       <% jobs.forEach((job)=>{%>
       <li>
@@ -32,7 +34,7 @@
           </div>
           <div>
             <b>View Applicants:</b>
-            <a href="<%=job.applicantsLink%>" target="_blank">Click Here</a>
+            <a href="<%=job.applicantsLink%>">Click Here</a>
           </div>
         </div>
       </li>
