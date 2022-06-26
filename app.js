@@ -1,4 +1,5 @@
 const express = require("express");
+const PORT = process.env.PORT || 3000;
 const ejs = require("ejs");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -288,6 +289,7 @@ app.get("/job/:jobId/", (req, res) => {
   });
 });
 
+//Home
 app.post("/signin/", (req, res) => {
   // Login for an Existing User
   // console.log(req.body.email, req.body.password, req.body.userType);
@@ -400,6 +402,6 @@ app.post("/college/:collegeId/add-job-vacancy/", (req, res) => {
   });
 });
 
-app.listen(3000, () => {
-  console.log("App started at port 3000");
+app.listen(PORT, () => {
+  console.log("App started at port " + PORT);
 });
